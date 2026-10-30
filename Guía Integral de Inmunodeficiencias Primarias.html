@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Integral de Inmunodeficiencias Primarias (IDP)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts: Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#035485',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        medical: {
+                            50: '#f4fbf7',
+                            100: '#e6f7ee',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                        },
+                        family: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            500: '#f97316',
+                            600: '#ea580c',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .tab-btn.active-student {
+            background-color: #0284c7;
+            color: white;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+        }
+        .tab-btn.active-doctor {
+            background-color: #0d9488;
+            color: white;
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+        }
+        .tab-btn.active-family {
+            background-color: #ea580c;
+            color: white;
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans min-h-screen flex flex-col">
+
+    <!-- TOP HEADER / BRANDING BANNER -->
+    <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-brand-600 rounded-xl">
+                    <i data-lucide="shield-pulse" class="w-7 h-7 text-white"></i>
+                </div>
+                <div>
+                    <h1 class="font-heading font-bold text-xl leading-tight">Portal IDP Hispanoamérica</h1>
+                    <p class="text-xs text-slate-400">Basado en IDF (primaryimmune.org), Info4PI y FUMENI (fumeni.org.mx)</p>
+                </div>
+            </div>
+
+            <!-- Quick Info Badge -->
+            <div class="hidden md:flex items-center space-x-6 text-xs text-slate-300">
+                <span class="flex items-center gap-1.5"><i data-lucide="book-open" class="w-4 h-4 text-sky-400"></i> +400 Defectos Genéticos</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="activity" class="w-4 h-4 text-emerald-400"></i> Detección Temprana</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="heart-handshake" class="w-4 h-4 text-amber-400"></i> Soporte a Familias</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- AUDIENCE PROFILE SELECTOR (TABS) NAVBAR -->
+    <section class="bg-white border-b border-slate-200 sticky top-[61px] z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="py-3 flex justify-center sm:justify-start">
+                <nav class="flex p-1.5 bg-slate-100 rounded-2xl w-full max-w-2xl justify-between text-xs sm:text-sm font-semibold gap-1">
+                    <button id="btn-student" onclick="switchTab('student')" class="tab-btn active-student flex-1 py-2.5 px-3 sm:px-5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2">
+                        <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+                        <span>Estudiantes</span>
+                    </button>
+                    <button id="btn-doctor" onclick="switchTab('doctor')" class="tab-btn text-slate-600 hover:text-slate-900 flex-1 py-2.5 px-3 sm:px-5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2">
+                        <i data-lucide="stethoscope" class="w-4 h-4"></i>
+                        <span>Médicos</span>
+                    </button>
+                    <button id="btn-family" onclick="switchTab('family')" class="tab-btn text-slate-600 hover:text-slate-900 flex-1 py-2.5 px-3 sm:px-5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2">
+                        <i data-lucide="heart" class="w-4 h-4"></i>
+                        <span>Familiares</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ========================================== -->
+        <!-- SECTION 1: ESTUDIANTES (ACADÉMICO / CIENCIA) -->
+        <!-- ========================================== -->
+        <div id="section-student" class="space-y-8">
+            
+            <!-- Hero Banner Estudiantes -->
+            <div class="bg-gradient-to-r from-sky-900 via-brand-800 to-sky-700 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+                <div class="relative z-10 max-w-3xl space-y-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-200 border border-sky-400/30">
+                        Inmunología Clínica & Genética
+                    </span>
+                    <h2 class="font-heading text-2xl sm:text-4xl font-extrabold tracking-tight">Fundamentos Biológicos y Clasificación de las IDP</h2>
+                    <p class="text-sky-100 text-sm sm:text-base leading-relaxed">
+                        Exploración sistemática de los errores congénitos de la inmunidad (ECI), mecanismos fisiopatológicos, bases moleculares y clasificación oficial de la IUIS.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Quick Navigation Index for Students -->
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-wrap gap-2 text-xs font-medium text-slate-600">
+                <span class="font-bold text-slate-900 flex items-center gap-1"><i data-lucide="list" class="w-3.5 h-3.5"></i> Índice rápido:</span>
+                <a href="#st-def" class="hover:bg-slate-100 px-2.5 py-1 rounded-lg">1. Definición y Epidemiología</a>
+                <a href="#st-iuis" class="hover:bg-slate-100 px-2.5 py-1 rounded-lg">2. Clasificación IUIS</a>
+                <a href="#st-path" class="hover:bg-slate-100 px-2.5 py-1 rounded-lg">3. Fisiopatología Genética</a>
+                <a href="#st-cell" class="hover:bg-slate-100 px-2.5 py-1 rounded-lg">4. Inmunidad Celular vs Humoral</a>
+            </div>
+
+            <!-- Content Card: Definición y Contexto -->
+            <article id="st-def" class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-sky-100 rounded-xl text-sky-700">
+                        <i data-lucide="book-open" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-heading font-bold text-slate-900">1. ¿Qué son los Errores Congénitos de la Inmunidad?</h3>
+                        <p class="text-xs text-slate-500">Definición conceptual y relevancia médica internacional</p>
+                    </div>
+                </div>
+                <hr class="border-slate-100">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-600 leading-relaxed">
+                    <div>
+                        <p class="mb-3">
+                            Las <strong class="text-slate-800">Inmunodeficiencias Primarias (IDP)</strong>, formalmente denominadas <em>Errores Congénitos de la Inmunidad (ECI)</em>, corresponden a un grupo heterogéneo de más de 450 trastornos genéticos hereditarios o <em>de novo</em> que alteran cuantitativa o cualitativamente la estructura y función del sistema inmune.
+                        </p>
+                        <p>
+                            A diferencia de las inmunodeficiencias secundarias (causadas por VIH, desnutrición, quimioterapia o inmunosupresores), las IDP son intrínsecas al genoma del paciente. La prevalencia global combinada se estima en aprox. <strong>1 en cada 1,000 a 5,000 nacidos vivos</strong>.
+                        </p>
+                    </div>
+                    <div class="bg-sky-50/60 p-4 rounded-2xl border border-sky-100 space-y-2">
+                        <h4 class="font-bold text-sky-900 text-sm flex items-center gap-2">
+                            <i data-lucide="info" class="w-4 h-4 text-sky-600"></i> Puntos Clave para Exámenes / Rondas Médicas:
+                        </h4>
+                        <ul class="list-disc pl-5 space-y-1.5 text-xs text-sky-900">
+                            <li><strong>Infecciones Recurrentes:</strong> La manifestación clásica es la susceptibilidad incrementada a patógenos oportunistas o comunes de forma severa o recurrente.</li>
+                            <li><strong>Desregulación Inmune:</strong> Más del 30% de los pacientes presentan autoinmunidad, alergias severas o fenotipos linfoproliferativos.</li>
+                            <li><strong>Herencia:</strong> Ligada al X (ej. Agammaglobulinemia de Bruton, SCID-X1) o Autosómica Recesiva/Dominante.</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Content Card: Clasificación IUIS -->
+            <article id="st-iuis" class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-sky-100 rounded-xl text-sky-700">
+                        <i data-lucide="layers" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-heading font-bold text-slate-900">2. Clasificación de la IUIS (Unión Internacional de Sociedades de Inmunología)</h3>
+                        <p class="text-xs text-slate-500">Estratificación en 10 grandes categorías moleculares e inmunológicas</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-sky-300 transition-all">
+                        <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Categoría I</span>
+                        <h4 class="font-bold text-slate-900 text-sm mt-1">Inmunodeficiencias Combinadas con/sin Rasgos Sindrómicos</h4>
+                        <p class="text-xs text-slate-600 mt-2">Afectan tanto linfocitos T como B. Ejemplos: SCID (Deficiencia de ADA, γ-cadena común), Síndrome de DiGeorge, Wiskott-Aldrich.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-sky-300 transition-all">
+                        <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Categoría II</span>
+                        <h4 class="font-bold text-slate-900 text-sm mt-1">Defectos Predominantemente Humorales (B)</h4>
+                        <p class="text-xs text-slate-600 mt-2 font-medium">~50-60% de todos los casos de IDP. Agammaglobulinemia ligada al X (BTK), Inmunodeficiencia Común Variable (IDCV), Defectos de IgA o Subclases IgG.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-sky-300 transition-all">
+                        <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Categoría III</span>
+                        <h4 class="font-bold text-slate-900 text-sm mt-1">Enfermedades de Desregulación Inmunitaria</h4>
+                        <p class="text-xs text-slate-600 mt-2">Hemofagocitosis linfohistiocítica (HLH), Síndrome IPEX (defectos en FOXP3/Linfocitos Treg), ALPS.</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-sky-300 transition-all">
+                        <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Categoría IV</span>
+                        <h4 class="font-bold text-slate-900 text-sm mt-1">Defectos Fagoticos Fisiológicos</h4>
+                        <p class="text-xs text-slate-600 mt-2">Número o función anómala de neutrófilos/macrófagos. Enfermedad Granulomatosa Crónica (EGC), Defectos de Adhesión Leucocitaria (LAD).</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-sky-300 transition-all">
+                        <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Categoría V</span>
+                        <h4 class="font-bold text-slate-900 text-sm mt-1">Defectos de la Inmunidad Innata</h4>
+                        <p class="text-xs text-slate-600 mt-2">Alteraciones en la señalización de Receptores Toll-Like (TLR), vía MyD88, IRAK4, susceptibilidad mendeliana a micobacterias (MSMD).</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-sky-300 transition-all">
+                        <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Categoría VI</span>
+                        <h4 class="font-bold text-slate-900 text-sm mt-1">Deficiencia del Sistema del Complemento</h4>
+                        <p class="text-xs text-slate-600 mt-2">Deficiencias de C1q, C2, C4 (asociados a Lupus), C3, o vía terminal C5-C9 (susceptibilidad alta a <em>Neisseria meningitidis</em>).</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Content Card: Fisiopatología Comparativa -->
+            <article id="st-path" class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-sky-100 rounded-xl text-sky-700">
+                        <i data-lucide="dna" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-heading font-bold text-slate-900">3. Mecanismos Fisiopatológicos y Genéticos</h3>
+                        <p class="text-xs text-slate-500">¿Cómo alteran las mutaciones génicas la respuesta adaptativa e innata?</p>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs text-left text-slate-600 border-collapse">
+                        <thead class="bg-slate-100 text-slate-800 font-bold uppercase tracking-wider">
+                            <tr>
+                                <th class="p-3 rounded-l-xl">Patología</th>
+                                <th class="p-3">Gen Afectado</th>
+                                <th class="p-3">Mecanismo Molecular</th>
+                                <th class="p-3">Infecciones Características</th>
+                                <th class="p-3 rounded-r-xl">Laboratorio Clave</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">Agammaglobulinemia Ligada al X (XLA)</td>
+                                <td class="p-3 font-mono text-sky-700">BTK (Xq21.3)</td>
+                                <td class="p-3">Fallo en la tirosina quinasa de Bruton, bloqueando el desarrollo de pre-B a B maduro.</td>
+                                <td class="p-3">Bacterias encapsuladas (<em>S. pneumoniae, H. influenzae</em>), enterovirus.</td>
+                                <td class="p-3">Ausencia casi total de inmunoglobulinas (IgG, IgA, IgM) y linfocitos B CD19+.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">SCID T- B+ NK-</td>
+                                <td class="p-3 font-mono text-sky-700">IL2RG (Xq13.1)</td>
+                                <td class="p-3">Mutación en subunidad γ de receptores de IL-2, IL-4, IL-7, IL-9, IL-15, IL-21.</td>
+                                <td class="p-3"><em>Pneumocystis jirovecii</em>, CMV, Candida, diarrea crónica, fallo de medro.</td>
+                                <td class="p-3">Linfopenia severa CD3+/CD8+, ausencia de TRECs en tamiz neonatal.</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-bold text-slate-900">Enfermedad Granulomatosa Crónica (EGC)</td>
+                                <td class="p-3 font-mono text-sky-700">CYBB / CYBA / NCF1</td>
+                                <td class="p-3">Defecto en el complejo NADPH oxidasa. Incapacidad de generar estallido respiratorio (ROS).</td>
+                                <td class="p-3">Bacterias y hongos catalasa-positivos (<em>Aspergillus, S. aureus, Serratia, Burkholderia</em>).</td>
+                                <td class="p-3">Prueba de Dihidrorrodamina (DHR) por citometría de flujo alterada.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SECTION 2: MÉDICOS (CLÍNICA / DIAGNÓSTICO) -->
+        <!-- ========================================== -->
+        <div id="section-doctor" class="hidden space-y-8">
+            
+            <!-- Hero Banner Médicos -->
+            <div class="bg-gradient-to-r from-teal-900 via-medical-700 to-teal-800 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+                <div class="relative z-10 max-w-3xl space-y-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-teal-400/20 text-teal-200 border border-teal-300/30">
+                        Práctica Clínica & Algoritmos Diagnósticos
+                    </span>
+                    <h2 class="font-heading text-2xl sm:text-4xl font-extrabold tracking-tight">Evaluación, Diagnóstico Diferencial y Terapéutica en ECI</h2>
+                    <p class="text-teal-100 text-sm sm:text-base leading-relaxed">
+                        Herramientas para el médico de primer contacto, pediatra e internista: desde el abordaje por sospecha clínica hasta protocolos de reemplazo inmunológico.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Interactive Diagnostic Flowchart -->
+            <article class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex items-center justify-between flex-wrap gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2.5 bg-teal-100 rounded-xl text-teal-800">
+                            <i data-lucide="git-circuit" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-heading font-bold text-slate-900">Algoritmo Diagnóstico Inicial de Laboratorio</h3>
+                            <p class="text-xs text-slate-500">Pasos secuenciales recomendados ante sospecha clínica</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Steps Diagram -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+                    <div class="bg-teal-50 border border-teal-200 p-4 rounded-2xl text-xs space-y-2 relative">
+                        <span class="bg-teal-700 text-white font-bold px-2 py-0.5 rounded-md text-[10px]">NIVEL 1</span>
+                        <h4 class="font-bold text-teal-950 text-sm">Biometría Hemática Completa (BHC)</h4>
+                        <p class="text-slate-600">Evaluar Recuento Absoluto de Linfocitos (ALC). Linfopenia en lactantes (<1,500/µL) es alarma crítica de SCID.</p>
+                    </div>
+
+                    <div class="bg-teal-50 border border-teal-200 p-4 rounded-2xl text-xs space-y-2">
+                        <span class="bg-teal-700 text-white font-bold px-2 py-0.5 rounded-md text-[10px]">NIVEL 2</span>
+                        <h4 class="font-bold text-teal-950 text-sm">Cuantificación de Ig Séricas</h4>
+                        <p class="text-slate-600">Medir niveles de IgG, IgA, IgM e IgE ajustados estrictamente a valores de referencia según la edad del paciente.</p>
+                    </div>
+
+                    <div class="bg-teal-50 border border-teal-200 p-4 rounded-2xl text-xs space-y-2">
+                        <span class="bg-teal-700 text-white font-bold px-2 py-0.5 rounded-md text-[10px]">NIVEL 3</span>
+                        <h4 class="font-bold text-teal-950 text-sm">Evaluación Funcional de Anticuerpos</h4>
+                        <p class="text-slate-600">Títulos de IgG pre/post vacuna (Tétanos/Difteria para antígenos proteicos; Pneumococo para polisacáridos).</p>
+                    </div>
+
+                    <div class="bg-teal-50 border border-teal-200 p-4 rounded-2xl text-xs space-y-2">
+                        <span class="bg-teal-700 text-white font-bold px-2 py-0.5 rounded-md text-[10px]">NIVEL 4</span>
+                        <h4 class="font-bold text-teal-950 text-sm">Citometría de Flujo & Genética</h4>
+                        <p class="text-slate-600">Inmunofenotipificación celular (CD3, CD4, CD8, CD19, CD56) y Secuenciación NGS (Panel de IDP / Exoma).</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Diagnostic Calculator / Tool -->
+            <article class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-teal-100 rounded-xl text-teal-800">
+                        <i data-lucide="calculator" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-heading font-bold text-slate-900">Calculadora de Dosis de Inmunoglobulina Humana (IGIV / IGSC)</h3>
+                        <p class="text-xs text-slate-500">Estimación rápida para terapia de reemplazo en hipogammaglobulinemia</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 grid grid-cols-1 md:grid-cols-3 gap-6 items-end text-xs">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-2">Peso del Paciente (kg):</label>
+                        <input type="number" id="calc-weight" placeholder="Ej. 60" class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-500 outline-none text-sm font-semibold">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-2">Dosis Deseada (mg/kg/mes):</label>
+                        <select id="calc-dose" class="w-full p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-500 outline-none text-sm font-semibold">
+                            <option value="400">400 mg/kg (Dosis estándar de inicio)</option>
+                            <option value="600">600 mg/kg (Sepsis / Infecciones crónicas)</option>
+                            <option value="800">800 mg/kg (Dosis alta / Bronquiectasias)</option>
+                        </select>
+                    </div>
+                    <button onclick="calculateIgDose()" class="bg-teal-700 hover:bg-teal-800 text-white font-bold p-3 rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                        <i data-lucide="calculator" class="w-4 h-4"></i>
+                        <span>Calcular Dosis Mensual</span>
+                    </button>
+                </div>
+
+                <div id="calc-result" class="hidden p-4 bg-teal-50 border border-teal-200 rounded-2xl text-teal-900 text-xs sm:text-sm">
+                    <div class="font-bold flex items-center gap-2 text-teal-950">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-teal-600"></i>
+                        <span>Resultado de Cálculo Terapéutico:</span>
+                    </div>
+                    <p class="mt-2" id="calc-output-text"></p>
+                </div>
+            </article>
+
+            <!-- Differential Diagnoses Table -->
+            <article class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-teal-100 rounded-xl text-teal-800">
+                        <i data-lucide="stethoscope" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-heading font-bold text-slate-900">Diagnóstico Diferencial: IDP vs Pérdidas Secundarias</h3>
+                        <p class="text-xs text-slate-500">Cómo descartar hipogammaglobulinemias secundarias antes de asumir un diagnóstico genético</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-700">
+                    <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                            <i data-lucide="x-circle" class="w-4 h-4 text-rose-500"></i> Causas de Pérdida Proteica (Secundarias)
+                        </h4>
+                        <ul class="space-y-2 list-disc pl-4 text-slate-600">
+                            <li><strong>Síndrome Nefrótico:</strong> Pérdida renal masiva de IgG (medir proteinuria en 24h, albúmina sérica). La IgM suele conservarse por su alto peso molecular.</li>
+                            <li><strong>Enteropatía Perdedora de Proteínas:</strong> Pérdida intestinal de Igs por linfangiectasia o enfermedad inflamatoria (medir α-1 antitripsina en heces).</li>
+                            <li><strong>Quemaduras Extensas:</strong> Pérdida exudativa directa.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-5 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
+                        <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                            <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-500"></i> Contraindicaciones Críticas de Vacunación
+                        </h4>
+                        <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-900">
+                            <strong class="font-bold block mb-1">¡ATENCIÓN PEDIÁTRICA Y DE PRIMER CONTACTO!</strong>
+                            Está estrictamente <u>CONTRAINDICADA</u> la administración de vacunas con microorganismos vivos atenuados (BCG, Rotavirus, SRP, Sabin/VPO, Varicela) en pacientes con sospecha o diagnóstico de <strong>SCID o deficiencias celulares T</strong>. Riesgo de infección diseminada vacunal fatal.
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Treatment Modalities -->
+            <article class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-teal-100 rounded-xl text-teal-800">
+                        <i data-lucide="syringe" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-heading font-bold text-slate-900">Modalidades Terapéuticas Actuales</h3>
+                        <p class="text-xs text-slate-500">Opciones de soporte y curativas fundamentadas en IDF/FUMENI</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div class="p-4 border border-slate-200 rounded-2xl space-y-2">
+                        <h4 class="font-bold text-teal-900 text-sm">1. Reemplazo de Inmunoglobulina</h4>
+                        <p class="text-slate-600">Infusión intravenosa (IGIV) cada 3-4 semanas o subcutánea (IGSC) semanal/bi-semanal. Mantiene niveles valle de IgG > 700-800 mg/dL para prevenir daño pulmonar crónico.</p>
+                    </div>
+                    <div class="p-4 border border-slate-200 rounded-2xl space-y-2">
+                        <h4 class="font-bold text-teal-900 text-sm">2. Profilaxis Antimicrobiana</h4>
+                        <p class="text-slate-600">Trimetoprim-Sulfametoxazol (TMP-SMX) para prevención de <em>Pneumocystis jirovecii</em> en deficiencias T, o en EGC. Antifúngicos (Itraconazol/Voriconazol) en EGC.</p>
+                    </div>
+                    <div class="p-4 border border-slate-200 rounded-2xl space-y-2">
+                        <h4 class="font-bold text-teal-900 text-sm">3. Terapia Curativa (HSCT / Terapia Génica)</h4>
+                        <p class="text-slate-600">El Trasplante de Células Progenitoras Hematopoyéticas (TCPH) es el tratamiento curativo de elección para SCID y IDP severas. Debe realizarse antes de los 3.5 meses para optimizar supervivencia (>90%).</p>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SECTION 3: FAMILIARES (LENGUAJE SENCILLO) -->
+        <!-- ========================================== -->
+        <div id="section-family" class="hidden space-y-8">
+            
+            <!-- Hero Banner Familiares -->
+            <div class="bg-gradient-to-r from-amber-700 via-family-600 to-orange-600 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+                <div class="relative z-10 max-w-3xl space-y-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-amber-400/20 text-amber-100 border border-amber-300/30">
+                        Espacio para Pacientes y Familias
+                    </span>
+                    <h2 class="font-heading text-2xl sm:text-4xl font-extrabold tracking-tight">Comprendiendo las Inmunodeficiencias Primarias</h2>
+                    <p class="text-amber-100 text-sm sm:text-base leading-relaxed">
+                        Información clara, cálida y sin modismos médicos complejos. Respuestas a sus preguntas y apoyo paso a paso para cuidar a su ser querido.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Content Card: Explicación Sencilla -->
+            <article class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-amber-100 rounded-xl text-amber-800">
+                        <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-heading font-bold text-slate-900">¿Qué significa tener una Inmunodeficiencia Primaria?</h3>
+                        <p class="text-xs text-slate-500">Explicado en palabras sencillas</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-700 leading-relaxed">
+                    <div class="space-y-3">
+                        <p>
+                            Imagine que el cuerpo de su familiar tiene un **ejército de defensas de nacimiento** (el sistema inmunológico) encargado de protegerlo contra virus, bacterias y hongos.
+                        </p>
+                        <p>
+                            En una persona con **Inmunodeficiencia Primaria (IDP)**, algunas "piezas" o soldados de este ejército no nacieron o no funcionan correctamente debido a un fallo en las instrucciones genéticas de nacimiento.
+                        </p>
+                        <p>
+                            <strong>No es su culpa:</strong> La IDP **NO** es contagiosa, no es causada por descuidos en la alimentación, frío, o contagio por contacto social. Es una condición genética de nacimiento.
+                        </p>
+                    </div>
+                    <div class="bg-amber-50/70 p-5 rounded-2xl border border-amber-200 space-y-3">
+                        <h4 class="font-bold text-amber-950 text-sm flex items-center gap-2">
+                            <i data-lucide="shield-check" class="w-5 h-5 text-amber-600"></i> La buena noticia:
+                        </h4>
+                        <p class="text-xs text-slate-700 leading-relaxed">
+                            Hoy en día, con un **diagnóstico a tiempo** y el tratamiento adecuado (como la reposición de defensas mediante Inmunoglobulina), las personas con IDP pueden ir a la escuela, trabajar, jugar y llevar una vida plena, activa y feliz.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Interactive Warning Signs Checklist -->
+            <article class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex items-center justify-between flex-wrap gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2.5 bg-amber-100 rounded-xl text-amber-800">
+                            <i data-lucide="alert-circle" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-heading font-bold text-slate-900">Las 10 Señales de Alarma de las IDP (Info4PI / IDF)</h3>
+                            <p class="text-xs text-slate-500">Marque las señales que ha observado en su hijo o familiar para consultar con su médico:</p>
+                        </div>
+                    </div>
+                    <button onclick="resetChecklist()" class="text-xs text-amber-700 hover:text-amber-900 font-semibold underline">
+                        Limpiar selección
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs" id="warning-checklist">
+                    <label class="flex items-start p-3 bg-slate-50 hover:bg-amber-50 rounded-xl border border-slate-200 cursor-pointer transition-colors space-x-3">
+                        <input type="checkbox" onchange="updateWarningCounter()" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500 w-4 h-4">
+                        <span><strong>1.</strong> Cuatro o más infecciones de oído (otitis) en un año.</span>
+                    </label>
+                    <label class="flex items-start p-3 bg-slate-50 hover:bg-amber-50 rounded-xl border border-slate-200 cursor-pointer transition-colors space-x-3">
+                        <input type="checkbox" onchange="updateWarningCounter()" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500 w-4 h-4">
+                        <span><strong>2.</strong> Dos o más infecciones graves de senos paranasales (sinusitis) en un año.</span>
+                    </label>
+                    <label class="flex items-start p-3 bg-slate-50 hover:bg-amber-50 rounded-xl border border-slate-200 cursor-pointer transition-colors space-x-3">
+                        <input type="checkbox" onchange="updateWarningCounter()" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500 w-4 h-4">
+                        <span><strong>3.</strong> Dos o más meses tomando antibióticos con poco o ningún efecto.</span>
+                    </label>
+                    <label class="flex items-start p-3 bg-slate-50 hover:bg-amber-50 rounded-xl border border-slate-200 cursor-pointer transition-colors space-x-3">
+                        <input type="checkbox" onchange="updateWarningCounter()" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500 w-4 h-4">
+                        <span><strong>4.</strong> Dos o más neumonías en un solo año.</span>
+                    </label>
+                    <label class="flex items-start p-3 bg-slate-50 hover:bg-amber-50 rounded-xl border border-slate-200 cursor-pointer transition-colors space-x-3">
+                        <input type="checkbox" onchange="updateWarningCounter()" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500 w-4 h-4">
+                        <span><strong>5.</strong> Dificultad para subir de peso o crecer normalmente (en bebés o niños).</span>
+                    </label>
+                    <label class="flex items-start p-3 bg-slate-50 hover:bg-amber-50 rounded-xl border border-slate-200 cursor-pointer transition-colors space-x-3">
+                        <input type="checkbox" onchange="updateWarningCounter()" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500 w-4 h-4">
+                        <span><strong>6.</strong> Abscesos (acumulaciones de pus) profundos e infecciones frecuentes en la piel u órganos.</span>
+                    </label>
+                    <label class="flex items-start p-3 bg-slate-50 hover:bg-amber-50 rounded-xl border border-slate-200 cursor-pointer transition-colors space-x-3">
+                        <input type="checkbox" onchange="updateWarningCounter()" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500 w-4 h-4">
+                        <span><strong>7.</strong> Aftas o llagas persistentes en la boca o infecciones por hongos en la piel.</span>
+                    </label>
+                    <label class="flex items-start p-3 bg-slate-50 hover:bg-amber-50 rounded-xl border border-slate-200 cursor-pointer transition-colors space-x-3">
+                        <input type="checkbox" onchange="updateWarningCounter()" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500 w-4 h-4">
+                        <span><strong>8.</strong> Necesidad de antibióticos por vía intravenosa para curar las infecciones.</span>
+                    </label>
+                    <label class="flex items-start p-3 bg-slate-50 hover:bg-amber-50 rounded-xl border border-slate-200 cursor-pointer transition-colors space-x-3">
+                        <input type="checkbox" onchange="updateWarningCounter()" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500 w-4 h-4">
+                        <span><strong>9.</strong> Dos o más infecciones profundas gravemente invasivas (como septicemia o meningitis).</span>
+                    </label>
+                    <label class="flex items-start p-3 bg-slate-50 hover:bg-amber-50 rounded-xl border border-slate-200 cursor-pointer transition-colors space-x-3">
+                        <input type="checkbox" onchange="updateWarningCounter()" class="mt-0.5 rounded text-amber-600 focus:ring-amber-500 w-4 h-4">
+                        <span><strong>10.</strong> Antecedentes familiares de Inmunodeficiencia Primaria en la familia.</span>
+                    </label>
+                </div>
+
+                <div id="warning-result-box" class="p-4 rounded-2xl bg-slate-100 text-xs font-medium text-slate-700 flex items-center justify-between">
+                    <span>Señales seleccionadas: <strong id="warning-count" class="text-amber-600 font-bold text-sm">0</strong> de 10</span>
+                    <span id="warning-advice" class="text-slate-500">Marque las opciones correspondientes para ver una recomendación.</span>
+                </div>
+            </article>
+
+            <!-- FAQ Accordion -->
+            <article class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-amber-100 rounded-xl text-amber-800">
+                        <i data-lucide="help-circle" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-heading font-bold text-slate-900">Preguntas Frecuentes de Familias (FAQs)</h3>
+                        <p class="text-xs text-slate-500">Aclarando dudas cotidianas e inquietudes comunes</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3 text-xs sm:text-sm">
+                    <!-- FAQ 1 -->
+                    <details class="group bg-slate-50 border border-slate-200 rounded-2xl p-4 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
+                        <summary class="flex justify-between items-center font-bold text-slate-900">
+                            <span>¿Mi hijo puede asistir a la escuela y jugar normalmente?</span>
+                            <span class="transition group-open:rotate-180">
+                                <i data-lucide="chevron-down" class="w-4 h-4 text-slate-500"></i>
+                            </span>
+                        </summary>
+                        <p class="mt-3 text-slate-600 leading-relaxed">
+                            Sí. Una vez iniciado el tratamiento de reemplazo con inmunoglobulina o profilaxis, la mayoría de los niños pueden asistir a la escuela y participar en actividades. Se deben tomar precauciones básicas como lavado frecuente de manos, evitar el contacto con compañeros visiblemente enfermos y mantener el esquema de cuidados indicado por el inmunólogo.
+                        </p>
+                    </details>
+
+                    <!-- FAQ 2 -->
+                    <details class="group bg-slate-50 border border-slate-200 rounded-2xl p-4 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
+                        <summary class="flex justify-between items-center font-bold text-slate-900">
+                            <span>¿Puedo vacunar a mi familiar con IDP?</span>
+                            <span class="transition group-open:rotate-180">
+                                <i data-lucide="chevron-down" class="w-4 h-4 text-slate-500"></i>
+                            </span>
+                        </summary>
+                        <p class="mt-3 text-slate-600 leading-relaxed">
+                            <strong>Consulte SIEMPRE con su Inmunólogo antes de aplicar cualquier vacuna.</strong> Vacunas inactivadas (como la de la gripe inyectable) suelen ser seguras, pero las vacunas con virus o bacterias vivas atenuadas (como Sarampión, Rubéola, Parotiditis, Varicela, Rotavirus o BCG) pueden ser peligrosas en ciertos tipos de IDP.
+                        </p>
+                    </details>
+
+                    <!-- FAQ 3 -->
+                    <details class="group bg-slate-50 border border-slate-200 rounded-2xl p-4 [&_summary::-webkit-details-marker]:hidden cursor-pointer">
+                        <summary class="flex justify-between items-center font-bold text-slate-900">
+                            <span>¿La Inmunodeficiencia Primaria se cura completamente?</span>
+                            <span class="transition group-open:rotate-180">
+                                <i data-lucide="chevron-down" class="w-4 h-4 text-slate-500"></i>
+                            </span>
+                        </summary>
+                        <p class="mt-3 text-slate-600 leading-relaxed">
+                            Algunas formas muy graves (como la IDCG o SCID) pueden curarse definitivamente mediante un Trasplante de Células Madre/Médula Ósea. Para otras formas de IDP, el tratamiento con Inmunoglobulina dura toda la vida, permitiendo controlar perfectamente la enfermedad y prevenir complicaciones.
+                        </p>
+                    </details>
+                </div>
+            </article>
+
+            <!-- External Support Organizations Links -->
+            <article class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-amber-100 rounded-xl text-amber-800">
+                        <i data-lucide="globe" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-heading font-bold text-slate-900">Organizaciones y Páginas de Apoyo Oficiales</h3>
+                        <p class="text-xs text-slate-500">Recursos gratuitos, guías descargables y redes de pacientes</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <a href="https://fumeni.org.mx/" target="_blank" rel="noopener noreferrer" class="p-4 rounded-2xl bg-amber-50/50 border border-amber-200 hover:border-amber-400 transition-all flex flex-col justify-between space-y-3 group">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-amber-900 text-sm">FUMENI México</span>
+                                <i data-lucide="external-link" class="w-4 h-4 text-amber-600 group-hover:translate-x-0.5 transition-transform"></i>
+                            </div>
+                            <p class="text-slate-600 mt-2">Fundación Mexicana para Niñas y Niños con Inmunodeficiencias. Apoyo a familias, orientación diagnóstica y canalización en México.</p>
+                        </div>
+                        <span class="text-amber-700 font-semibold underline">Visitar fumeni.org.mx &rarr;</span>
+                    </a>
+
+                    <a href="https://primaryimmune.org/" target="_blank" rel="noopener noreferrer" class="p-4 rounded-2xl bg-sky-50/50 border border-sky-200 hover:border-sky-400 transition-all flex flex-col justify-between space-y-3 group">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-sky-900 text-sm">IDF (Immune Deficiency Foundation)</span>
+                                <i data-lucide="external-link" class="w-4 h-4 text-sky-600 group-hover:translate-x-0.5 transition-transform"></i>
+                            </div>
+                            <p class="text-slate-600 mt-2">Líder mundial en educación para pacientes con IDP. Dispone de manuales, historias de vida y seminarios globales.</p>
+                        </div>
+                        <span class="text-sky-700 font-semibold underline">Visitar primaryimmune.org &rarr;</span>
+                    </a>
+
+                    <a href="https://www.info4pi.org/" target="_blank" rel="noopener noreferrer" class="p-4 rounded-2xl bg-emerald-50/50 border border-emerald-200 hover:border-emerald-400 transition-all flex flex-col justify-between space-y-3 group">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-emerald-900 text-sm">Info4PI / JMF</span>
+                                <i data-lucide="external-link" class="w-4 h-4 text-emerald-600 group-hover:translate-x-0.5 transition-transform"></i>
+                            </div>
+                            <p class="text-slate-600 mt-2">Jeffrey Modell Foundation. Red internacional con centros de diagnóstico de excelencia y material educativo multilenguaje.</p>
+                        </div>
+                        <span class="text-emerald-700 font-semibold underline">Visitar info4pi.org &rarr;</span>
+                    </a>
+                </div>
+            </article>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 mt-12 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-4 text-center sm:text-left sm:flex sm:justify-between sm:items-center">
+            <div class="space-y-1">
+                <p class="font-bold text-slate-200">Guía Educativa e Informativa sobre Inmunodeficiencias Primarias</p>
+                <p class="text-slate-400">Compilación basada en lineamientos oficiales de IDF, FUMENI e Info4PI.</p>
+            </div>
+            <p class="text-slate-400 max-w-md text-[11px] leading-relaxed">
+                <strong>Aviso médico:</strong> Este portal tiene fines exclusivamente educativos e informativos. No sustituye la consulta, diagnóstico o criterio de un profesional de la salud cualificado.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Switch Audience Tabs Logic
+        function switchTab(profile) {
+            const studentSec = document.getElementById('section-student');
+            const doctorSec = document.getElementById('section-doctor');
+            const familySec = document.getElementById('section-family');
+
+            const btnStudent = document.getElementById('btn-student');
+            const btnDoctor = document.getElementById('btn-doctor');
+            const btnFamily = document.getElementById('btn-family');
+
+            // Hide all sections
+            studentSec.classList.add('hidden');
+            doctorSec.classList.add('hidden');
+            familySec.classList.add('hidden');
+
+            // Reset Tab Button styles
+            btnStudent.className = "tab-btn text-slate-600 hover:text-slate-900 flex-1 py-2.5 px-3 sm:px-5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2";
+            btnDoctor.className = "tab-btn text-slate-600 hover:text-slate-900 flex-1 py-2.5 px-3 sm:px-5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2";
+            btnFamily.className = "tab-btn text-slate-600 hover:text-slate-900 flex-1 py-2.5 px-3 sm:px-5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2";
+
+            if (profile === 'student') {
+                studentSec.classList.remove('hidden');
+                btnStudent.classList.add('active-student');
+            } else if (profile === 'doctor') {
+                doctorSec.classList.remove('hidden');
+                btnDoctor.classList.add('active-doctor');
+            } else if (profile === 'family') {
+                familySec.classList.remove('hidden');
+                btnFamily.classList.add('active-family');
+            }
+        }
+
+        // Doctor Calculator Logic
+        function calculateIgDose() {
+            const weight = parseFloat(document.getElementById('calc-weight').value);
+            const mgPerKg = parseFloat(document.getElementById('calc-dose').value);
+            const resultBox = document.getElementById('calc-result');
+            const outputText = document.getElementById('calc-output-text');
+
+            if (!weight || weight <= 0) {
+                alert('Por favor, ingrese un peso válido en kg.');
+                return;
+            }
+
+            const totalGrams = (weight * mgPerKg) / 1000;
+            const volume10Percent = totalGrams * 10; // 10% solution (100mg/ml) -> 1g per 10ml
+
+            outputText.innerHTML = `
+                Dosis total recomendada: <strong class="font-bold text-teal-950">${totalGrams.toFixed(1)} gramos al mes</strong>.<br>
+                • Si se administra solución al <strong>10% (IGIV)</strong>: Aprox. <strong>${volume10Percent.toFixed(0)} mL</strong> mensuales (a dividir en 1 infusión mensual o dosis semanales si es IGSC).
+            `;
+            resultBox.classList.remove('hidden');
+        }
+
+        // Family Warning Signs Interactive Checklist
+        function updateWarningCounter() {
+            const container = document.getElementById('warning-checklist');
+            const checkedCount = container.querySelectorAll('input[type="checkbox"]:checked').length;
+            const countDisplay = document.getElementById('warning-count');
+            const adviceDisplay = document.getElementById('warning-advice');
+            const box = document.getElementById('warning-result-box');
+
+            countDisplay.innerText = checkedCount;
+
+            if (checkedCount === 0) {
+                adviceDisplay.innerText = "Marque las opciones correspondientes para ver una recomendación.";
+                box.className = "p-4 rounded-2xl bg-slate-100 text-xs font-medium text-slate-700 flex items-center justify-between";
+            } else if (checkedCount >= 2) {
+                adviceDisplay.innerText = "⚠️ Dos o más señales sugieren la conveniencia de consultar con un especialista en Inmunología Clínica.";
+                box.className = "p-4 rounded-2xl bg-amber-100 border border-amber-300 text-xs font-bold text-amber-900 flex items-center justify-between";
+            } else {
+                adviceDisplay.innerText = "Consulte con su pediatra o médico familiar para seguimiento.";
+                box.className = "p-4 rounded-2xl bg-sky-50 border border-sky-200 text-xs font-medium text-sky-900 flex items-center justify-between";
+            }
+        }
+
+        function resetChecklist() {
+            const container = document.getElementById('warning-checklist');
+            const checkboxes = container.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = false);
+            updateWarningCounter();
+        }
+    </script>
+</body>
+</html>
